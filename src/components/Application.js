@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
-import axios from 'axios';
+import React from "react";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
+import { useApplicationData } from "hooks/useApplicationData";
 
 import "components/Application.scss";
 
@@ -9,47 +9,28 @@ import Appointment from './Appointment/index';
 
 export default function Application(props) {
 
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {},
-  });
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview,
+  } = useApplicationData();
 
-  const [appointments, setAppointments] = useState([])
+  const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
 
-  const setDay = (day) => {
-    setState({...state, day: day});
-    setAppointments(getAppointmentsForDay(state, state.day))
-  }
-
-  const schedule = appointments.map((appointment) => {
-
-    const interview = getInterview(state, appointment.Interview);
+    const interview = getInterview(state, appointment.interview);
+    const interviewers = getInterviewersForDay(state, state.day);
 
     return ( <Appointment
         key={appointment.id}
-        {...appointment}
+        id={appointment.id}
+        time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />)
-    })
-
-  useEffect(() => {
-    const days = axios.get(`http://localhost:8001/api/days`)
-    const appointments = axios.get(`http://localhost:8001/api/appointments`)
-    const interviewers = axios.get(`http://localhost:8001/api/interviewers`)
-    Promise.all([days, appointments, interviewers])
-      .then(response => {
-        console.log(response)
-        setState(prev => ({
-          ...prev,
-          days: response[0].data,
-          appointments: response[1].data,
-          interviewers: response[2].data,
-        }))
-      })
-      .catch((error) => console.log(error))
-  },[])
+  })
 
   return (
     <main className="layout">
@@ -74,7 +55,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {schedule}
+        {appointments}
       </section>
     </main>
   );

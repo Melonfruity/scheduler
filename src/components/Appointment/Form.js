@@ -3,9 +3,8 @@ import InterviewerList from '../InterviewerList';
 import Button from '../Button';
 
 const Form = (props) => {
-  
   const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null)
+  const [interviewer, setInterviewer] = useState(props.interviewer.id || null)
 
   const reset = () => {
     setName("");
@@ -45,7 +44,7 @@ const Form = (props) => {
           </Button>
           <Button
             confirm
-            onClick={props.onSave}
+            onClick={() => props.onSave(name, interviewer)}
           >
             Save
           </Button>

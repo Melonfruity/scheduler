@@ -10,7 +10,7 @@ const InterviewerList = ({ interviewers, interviewer, setInterviewer }) => {
       <ul className="interviewers__list">
         {interviewers.map((interviewerItem, i) => 
           <InterviewerListItem 
-            key={interviewerItem.id}
+            key={i}
             name={interviewerItem.name}
             avatar={interviewerItem.avatar}
             selected={interviewerItem.id === interviewer}

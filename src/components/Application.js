@@ -7,7 +7,7 @@ import "components/Application.scss";
 import DayList from './DayList';
 import Appointment from './Appointment/index';
 
-export default function Application(props) {
+export default function Application() {
 
   const {
     state,

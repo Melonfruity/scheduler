@@ -4,7 +4,7 @@ import Button from '../Button';
 
 const Form = (props) => {
   const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer.id || null)
+  const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null)
 
   const reset = () => {
     setName("");
@@ -44,7 +44,7 @@ const Form = (props) => {
           </Button>
           <Button
             confirm
-            onClick={() => props.onSave(name, interviewer)}
+            onClick={interviewer ? () => props.onSave(name, interviewer) : (e) => e.preventDefault()}
           >
             Save
           </Button>

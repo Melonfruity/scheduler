@@ -8,6 +8,7 @@ export const useApplicationData = () => {
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
+  // const DISMOUNT = "DISMOUNT";
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -24,6 +25,11 @@ export const useApplicationData = () => {
           appointments: action.appointments,
           days: action.days,
       };
+      // case DISMOUNT:
+      //   return {
+      //     ...state,
+      //     ...action.state,
+      //   }
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -45,7 +51,7 @@ export const useApplicationData = () => {
     });
   }
 
-  const bookInterview = (id, interview) => {
+  const bookInterview = useCallback((id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -64,9 +70,9 @@ export const useApplicationData = () => {
         // });
         return response;
       })
-  }
+  },[])
 
-  const cancelInterview = (id) => {
+  const cancelInterview = useCallback((id) => {
     // const appointment = {
     //   ...state.appointments[id],
     //   interview: null,
@@ -86,7 +92,7 @@ export const useApplicationData = () => {
       console.log(response)
       return response;
     })  
-  }
+  },[])
 
   const updateSpots = useCallback((change) => {
     const updatedDays = state.days.map((day) => {
@@ -100,14 +106,14 @@ export const useApplicationData = () => {
       return day;
     })
     return updatedDays;
-  },[state.day, state.days])
+  },[state])
 
   useEffect(() => {
 
     const days = axios.get(`http://localhost:8001/api/days`);
     const appointments = axios.get(`http://localhost:8001/api/appointments`);
     const interviewers = axios.get(`http://localhost:8001/api/interviewers`);
-
+    console.log('here')
     Promise.all([days, appointments, interviewers])
       .then(response => {
         dispatch({
@@ -120,11 +126,23 @@ export const useApplicationData = () => {
         });
       })
       .catch((error) => console.log(error))
+      // return () => dispatch({
+      //   type: "DISMOUNT",
+      //   state: {
+      //     day: "Monday",
+      //     days: [],
+      //     appointments: {},
+      //     interviewers: {},
+      //   }
+      // })
+  },[])
+
+  useEffect(() => {
     
       xampleWebsocket.onopen = () => {
         console.log('ping');
       }
-      
+
       xampleWebsocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type) {
@@ -151,7 +169,7 @@ export const useApplicationData = () => {
         xampleWebsocket.close();
       }
 
-  },[state, updateSpots])
+  })
 
   return {
     state,

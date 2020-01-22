@@ -1,5 +1,5 @@
 // import Appointment from "components/Appointment";
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import "./styles.scss";
 import Header from './Header';
@@ -24,6 +24,15 @@ const ERROR_DELETE = "ERROR_DELETE";
 const Appointment = (props) => {
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
+
+  useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+      transition(SHOW);
+     }
+     if (props.interview === null && mode === SHOW) {
+      transition(EMPTY);
+     }
+  }, [props.interview, transition, mode])
 
   const save = (name, interviewer) => {
     const interview = {
@@ -54,7 +63,7 @@ const Appointment = (props) => {
           onAdd={() => transition(CREATE)}
         />
       )}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}

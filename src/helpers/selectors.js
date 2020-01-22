@@ -8,7 +8,7 @@ export const getAppointmentsForDay = (state, day) => {
   }
 
   for (let index in appointments) {
-    const id = appointments[index].id
+    const id = appointments[index].id;
     if (selectedDay.appointments.includes(id)) {
       selectedAppointments.push(appointments[index]);
     }

@@ -9,6 +9,7 @@ export const useApplicationData = () => {
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
 
+  // reducer and initial state for the application
   const [state, dispatch] = useReducer(schedulerReducer, {
     day: "Monday",
     days: [],
@@ -16,6 +17,7 @@ export const useApplicationData = () => {
     interviewers: {},
   });
 
+  // sets the day of the state on select
   const setDay = (day) => {
     dispatch({
       type: SET_DAY,
@@ -23,6 +25,7 @@ export const useApplicationData = () => {
     });
   }
 
+  // book an interview on save function
   const bookInterview = useCallback((id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -34,6 +37,7 @@ export const useApplicationData = () => {
       .then(response => response)
   },[state])
 
+  // cancels an interview on delete 
   const cancelInterview = useCallback((id) => {
 
     return axios
@@ -41,6 +45,7 @@ export const useApplicationData = () => {
       .then(response => response)  
   },[])
 
+  // updates the total days available days shown
   const updateSpots = useCallback((change) => {
     const updatedDays = state.days.map((day) => {
       if (day.name === state.day) {
@@ -55,6 +60,7 @@ export const useApplicationData = () => {
     return updatedDays;
   },[state])
 
+  // gets all the data for the server
   useEffect(() => {
 
     const days = axios.get(`http://localhost:8001/api/days`);
@@ -75,6 +81,8 @@ export const useApplicationData = () => {
       .catch((error) => console.log(error))
   },[])
 
+  // opens a web socket connection with the server
+  // whene an interview is booked or created update all clients
   useEffect(() => {
     
       xampleWebsocket.onopen = () => {

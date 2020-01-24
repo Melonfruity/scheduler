@@ -58,13 +58,9 @@ const Appointment = (props) => {
       <Header 
         time={props.time}
       />
-      
-      {mode === SHOW && props.interview && (
-        <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
-          onDelete={() => transition(CONFIRM, true)}
-          onEdit={() => transition(EDIT)}
+      {mode === EMPTY && (
+        <Empty
+          onAdd={() => transition(CREATE)}
         />
       )}
       {mode === CREATE && (

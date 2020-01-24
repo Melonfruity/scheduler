@@ -98,7 +98,14 @@ const Appointment = (props) => {
           onSave={save}
           name={props.interview.student}
         />
-      )}      {mode === ERROR_DELETE && (
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message={"Error saving"}
+          onClose={back}
+        />
+      )}
+      {mode === ERROR_DELETE && (
         <Error
           message={"Error deleting"}
           onClose={back}

@@ -8,7 +8,6 @@ export const useApplicationData = () => {
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
-  // const DISMOUNT = "DISMOUNT";
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -25,11 +24,7 @@ export const useApplicationData = () => {
           appointments: action.appointments,
           days: action.days,
       };
-      // case DISMOUNT:
-      //   return {
-      //     ...state,
-      //     ...action.state,
-      //   }
+
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -56,20 +51,10 @@ export const useApplicationData = () => {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
 
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-      .then(response => {
-        // dispatch({
-        //   type: SET_INTERVIEW,
-        //   appointments,
-        //   days: updateSpots('book'),
-        // });
-        return response;
-      })
+    return axios
+      .put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      .then(response => response)
   },[state])
 
   const cancelInterview = useCallback((id) => {
@@ -82,16 +67,9 @@ export const useApplicationData = () => {
     //   [id]: appointment,
     // }
 
-    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-    .then(response => {
-      // dispatch({
-      //   type: SET_INTERVIEW,
-      //   appointments,
-      //   days: updateSpots('cancel')
-      // });
-      console.log(response)
-      return response;
-    })  
+    return axios
+      .delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(response => response)  
   },[])
 
   const updateSpots = useCallback((change) => {
@@ -126,15 +104,6 @@ export const useApplicationData = () => {
         });
       })
       .catch((error) => console.log(error))
-      // return () => dispatch({
-      //   type: "DISMOUNT",
-      //   state: {
-      //     day: "Monday",
-      //     days: [],
-      //     appointments: {},
-      //     interviewers: {},
-      //   }
-      // })
   },[])
 
   useEffect(() => {

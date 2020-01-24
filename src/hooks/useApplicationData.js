@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useCallback } from 'react';
 import axios from 'axios';
-
+import schedulerReducer from '../reducers/schedulerReducer'
 const xampleWebsocket = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
 
 export const useApplicationData = () => {
@@ -9,30 +9,7 @@ export const useApplicationData = () => {
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case SET_DAY:
-        return {...state, day: action.day};
-      case SET_APPLICATION_DATA:
-        return {
-          ...state,
-          ...action.state,
-        };
-      case SET_INTERVIEW:
-        return {
-          ...state,
-          appointments: action.appointments,
-          days: action.days,
-      };
-
-      default:
-        throw new Error(
-          `Tried to reduce with unsupported action type: ${action.type}`
-        );
-    }
-  }
-
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(schedulerReducer, {
     day: "Monday",
     days: [],
     appointments: {},
@@ -58,14 +35,6 @@ export const useApplicationData = () => {
   },[state])
 
   const cancelInterview = useCallback((id) => {
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: null,
-    // }
-    // const appointments ={
-    //   ...state.appointments,
-    //   [id]: appointment,
-    // }
 
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`)

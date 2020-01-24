@@ -26,14 +26,20 @@ const Appointment = (props) => {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
 
   useEffect(() => {
-    if (props.interview && mode === EMPTY) {
-      transition(SHOW);
-     }
-     if (props.interview === null && mode === SHOW) {
-      transition(EMPTY);
-     }
+    
   }, [props.interview, transition, mode])
 
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    }
+    transition(SAVING);
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(err => transition(ERROR_SAVE, true));
+  }
 
   const canceling = () => {
     transition(SAVING)

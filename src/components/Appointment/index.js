@@ -34,18 +34,13 @@ const Appointment = (props) => {
      }
   }, [props.interview, transition, mode])
 
-  const save = (name, interviewer) => {
-    const interview = {
-      student: name,
-      interviewer
-    }
-    transition(SAVING);
-    props
-      .bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch(err => transition(ERROR_SAVE, true));
-  }
 
+  const canceling = () => {
+    transition(SAVING)
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(err => transition(ERROR_DELETE, true))
+  }
 
   return (
     <article className="appointment">

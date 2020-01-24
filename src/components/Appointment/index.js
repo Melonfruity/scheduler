@@ -78,14 +78,12 @@ const Appointment = (props) => {
           onSave={save}
         />
       )}
-      
-      {mode === CONFIRM && (
-        <Confirm
-          message="DELETE?"
-          onCancel={back}
-          onConfirm={() => canceling()}
+      {mode === SAVING && (
+        <Status
+          message="SAVING"
         />
       )}
+      
       {mode === EDIT && (
         <Form
           interviewers={props.interviewers}

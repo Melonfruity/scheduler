@@ -47,7 +47,10 @@ const Form = (props) => {
           >
             Cancel
           </Button>
-          
+          <Button
+            confirm
+            onClick={interviewer ? () => props.onSave(name, interviewer) : (e) => e.preventDefault()}
+          >
             Save
           </Button>
         </section>

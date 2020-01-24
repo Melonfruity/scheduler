@@ -46,12 +46,6 @@ const Appointment = (props) => {
       .catch(err => transition(ERROR_SAVE, true));
   }
 
-  const canceling = () => {
-    transition(SAVING)
-    props.cancelInterview(props.id)
-      .then(() => transition(EMPTY))
-      .catch(err => transition(ERROR_DELETE, true))
-  }
 
   return (
     <article className="appointment">

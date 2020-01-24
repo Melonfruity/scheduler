@@ -63,13 +63,15 @@ const Appointment = (props) => {
           onAdd={() => transition(CREATE)}
         />
       )}
-      {mode === CREATE && (
-        <Form 
-          interviewers={props.interviewers}
-          onCancel={back}
-          onSave={save}
+      {mode === SHOW && props.interview && (
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onDelete={() => transition(CONFIRM, true)}
+          onEdit={() => transition(EDIT)}
         />
       )}
+     
       {mode === SAVING && (
         <Status
           message="SAVING"

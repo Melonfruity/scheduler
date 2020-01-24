@@ -23,10 +23,14 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = (props) => {
 
-  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
-
+  
   useEffect(() => {
-    
+    if (props.interview && mode === EMPTY) {
+      transition(SHOW);
+     }
+     if (props.interview === null && mode === SHOW) {
+      transition(EMPTY);
+     }
   }, [props.interview, transition, mode])
 
   const save = (name, interviewer) => {

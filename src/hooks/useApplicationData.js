@@ -27,10 +27,13 @@ export const useApplicationData = () => {
 
   // book an interview on save function
   const bookInterview = useCallback((id, interview) => {
+    console.log(interview)
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
+
+    console.log(appointment)
 
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, appointment)

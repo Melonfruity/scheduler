@@ -18,6 +18,10 @@
 .env.test.local
 .env.production.local
 
+.env.development
+.env.test
+.eslintrc.json
+
 .vscode/
 
 npm-debug.log*

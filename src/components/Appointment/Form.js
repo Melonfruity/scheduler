@@ -6,9 +6,10 @@ const Form = (props) => {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null)
 
-  const reset = () => {
-    setName("");
-    setInterviewer("");
+
+  const cancel = () => {
+    reset();
+    props.onCancel();
   }
 
   return (

@@ -36,6 +36,7 @@ const Appointment = (props) => {
      }
   }, [props.interview, transition, mode])
 
+  // save an interview
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -48,6 +49,7 @@ const Appointment = (props) => {
       .catch(err => transition(ERROR_SAVE, true));
   }
 
+  // cancel an interview
   const canceling = () => {
     transition(SAVING)
     props.cancelInterview(props.id)

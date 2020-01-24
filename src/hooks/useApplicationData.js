@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useCallback } from 'react';
 import axios from 'axios';
 import schedulerReducer from '../reducers/schedulerReducer'
-const xampleWebsocket = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
+const ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
 
 export const useApplicationData = () => {
 
@@ -34,16 +34,10 @@ export const useApplicationData = () => {
 
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, appointment)
-      .then(response => response)
   },[state])
 
   // cancels an interview on delete 
-  const cancelInterview = useCallback((id) => {
-
-    return axios
-      .delete(`http://localhost:8001/api/appointments/${id}`)
-      .then(response => response)  
-  },[])
+  const cancelInterview = useCallback((id) => axios.delete(`http://localhost:8001/api/appointments/${id}`),[])
 
   // updates the total days available days shown
   const updateSpots = useCallback((change) => {
@@ -85,11 +79,11 @@ export const useApplicationData = () => {
   // whene an interview is booked or created update all clients
   useEffect(() => {
     
-      xampleWebsocket.onopen = () => {
+      ws.onopen = () => {
         console.log('ping');
       }
 
-      xampleWebsocket.onmessage = (event) => {
+      ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type) {
           const appointment = {
@@ -108,11 +102,11 @@ export const useApplicationData = () => {
             days: updateSpots(data.interview ? 'book' : 'cancel'),
           });
         }
-        xampleWebsocket.send('updating');
+        ws.send('updating');
       }
     
-      xampleWebsocket.onclose = () => {
-        xampleWebsocket.close();
+      ws.onclose = () => {
+        ws.close();
       }
 
   })

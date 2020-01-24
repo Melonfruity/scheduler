@@ -70,7 +70,7 @@ export const useApplicationData = () => {
         // });
         return response;
       })
-  },[])
+  },[state])
 
   const cancelInterview = useCallback((id) => {
     // const appointment = {
@@ -113,7 +113,7 @@ export const useApplicationData = () => {
     const days = axios.get(`http://localhost:8001/api/days`);
     const appointments = axios.get(`http://localhost:8001/api/appointments`);
     const interviewers = axios.get(`http://localhost:8001/api/interviewers`);
-    console.log('here')
+    
     Promise.all([days, appointments, interviewers])
       .then(response => {
         dispatch({

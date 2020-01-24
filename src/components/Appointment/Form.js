@@ -21,18 +21,23 @@ const Form = (props) => {
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <input
+            /*
+              This must be a controlled component
+            */
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter Student Name"
-            /*
-              This must be a controlled component
-            */
+            data-testid="student-name-input"
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer} />
+        <InterviewerList
+          interviewers={props.interviewers} 
+          interviewer={interviewer} 
+          setInterviewer={setInterviewer}
+        />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

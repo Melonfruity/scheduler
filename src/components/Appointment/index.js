@@ -12,6 +12,7 @@ import { useVisualMode } from "../../hooks/useVisualMode";
 import Status from './Status';
 import Confirm from './Confirm';
 
+// view modes available on transition
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -23,6 +24,7 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = (props) => {
 
+  // modes for the appointment view
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
 
   useEffect(() => {

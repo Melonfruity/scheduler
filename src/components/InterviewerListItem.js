@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 const InterviewerListItem = ({ id, name, avatar, selected, setInterviewer }) => {
 
+  // css classes for the interviewer items
   const interviewerItemClass = classNames(
     'interviewers__item',
     {

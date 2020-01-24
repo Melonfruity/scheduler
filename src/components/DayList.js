@@ -1,6 +1,7 @@
 import React from 'react';
 import DayListItem from './DayListItem';
 
+// list of items for the navbar
 const DayList = ({ days, day, setDay }) => {
   
   return (

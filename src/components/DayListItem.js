@@ -2,6 +2,7 @@ import React from 'react';
 import './DayListItem.scss'
 import classNames from 'classnames';
 
+// Items for the navbar
 const DayListItem = ({ name, spots, selected, setDay }) => {
 
   const dayClass = classNames(

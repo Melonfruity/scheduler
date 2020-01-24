@@ -16,9 +16,12 @@ export default function Application() {
     cancelInterview,
   } = useApplicationData();
 
+  // lists all the appointments for the day
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
-
+    
+    // gets the interviewer for the current appointment
     const interview = getInterview(state, appointment.interview);
+    // get the interview list for the current day
     const interviewers = getInterviewersForDay(state, state.day);
 
     return ( <Appointment

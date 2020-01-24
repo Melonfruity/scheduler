@@ -22,6 +22,8 @@
 .env.test
 .eslintrc.json
 
+jsconfig.json
+
 .vscode/
 
 npm-debug.log*

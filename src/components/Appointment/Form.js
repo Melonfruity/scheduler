@@ -33,7 +33,11 @@ const Form = (props) => {
             data-testid="student-name-input"
           />
         </form>
-        
+        <InterviewerList
+          interviewers={props.interviewers} 
+          interviewer={interviewer} 
+          setInterviewer={setInterviewer}
+        />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
@@ -43,10 +47,7 @@ const Form = (props) => {
           >
             Cancel
           </Button>
-          <Button
-            confirm
-            onClick={interviewer ? () => props.onSave(name, interviewer) : (e) => e.preventDefault()}
-          >
+          
             Save
           </Button>
         </section>

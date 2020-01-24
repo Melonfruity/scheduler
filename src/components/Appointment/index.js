@@ -83,16 +83,14 @@ const Appointment = (props) => {
           message="SAVING"
         />
       )}
-      
-      {mode === EDIT && (
-        <Form
-          interviewers={props.interviewers}
-          interviewer={props.interview.interviewer}
+      {mode === CONFIRM && (
+        <Confirm
+          message="DELETE?"
           onCancel={back}
-          onSave={save}
-          name={props.interview.student}
+          onConfirm={() => canceling()}
         />
       )}
+      
       {mode === ERROR_SAVE && (
         <Error
           message={"Error saving"}

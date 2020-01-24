@@ -23,7 +23,8 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = (props) => {
 
-  
+  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY );
+
   useEffect(() => {
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
@@ -57,11 +58,7 @@ const Appointment = (props) => {
       <Header 
         time={props.time}
       />
-      {mode === EMPTY && (
-        <Empty
-          onAdd={() => transition(CREATE)}
-        />
-      )}
+      
       {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}

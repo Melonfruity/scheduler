@@ -36,11 +36,11 @@ export const useApplicationData = () => {
     console.log(appointment)
 
     return axios
-      .put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      .put(`/api/appointments/${id}`, appointment)
   },[state])
 
   // cancels an interview on delete 
-  const cancelInterview = useCallback((id) => axios.delete(`http://localhost:8001/api/appointments/${id}`),[])
+  const cancelInterview = useCallback((id) => axios.delete(`/api/appointments/${id}`),[])
 
   // updates the total days available days shown
   const updateSpots = useCallback((change) => {
@@ -60,9 +60,9 @@ export const useApplicationData = () => {
   // gets all the data for the server
   useEffect(() => {
 
-    const days = axios.get(`http://localhost:8001/api/days`);
-    const appointments = axios.get(`http://localhost:8001/api/appointments`);
-    const interviewers = axios.get(`http://localhost:8001/api/interviewers`);
+    const days = axios.get(`/api/days`);
+    const appointments = axios.get(`/api/appointments`);
+    const interviewers = axios.get(`/api/interviewers`);
     
     Promise.all([days, appointments, interviewers])
       .then(response => {

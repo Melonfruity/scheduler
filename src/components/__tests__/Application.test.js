@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, prettyDOM, getByText, getAllByRole, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
+import { render, cleanup, waitForElement, prettyDOM, getByText, getAllByRole, getAllByTestId, getByAltText, getByPlaceholderText, getAllByAltText } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -22,6 +22,7 @@ afterEach(cleanup);
   
 // });
 
+// 1053
 describe("Application", () => {
   it("loads data, books and interview and reduces the spots remaining for the first day by 1", async () => {
     
@@ -58,5 +59,29 @@ describe("Application", () => {
     // await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
   });
+
+  // 1054
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    const { container, debug } = render(<Application />);
+    
+    // 2. Wait until the text "Archie Cohen is displayed"
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // 3. Get the appointment that contains Archie Cohen
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[1];
+    
+    // 4. Click the "Delete" icon 
+    fireEvent.click(getByAltText(appointment, "Delete"));
+    
+    // 5. Check that the confirmation page to show up
+    expect(getByText(appointment, "Confirm")).toBeInTheDocument();
+
+    // 6. Click the confirm buttom
+    fireEvent.click(getByText(appointment, "Confirm"));
+    debug();
+  });
+
+  
 
 })

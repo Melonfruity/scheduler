@@ -81,7 +81,8 @@ describe("Application", () => {
 
     // 6. Click the confirm buttom
     fireEvent.click(getByText(appointment, "Confirm"));
-    // debug();
+    
+    debug();
   });
 
   // 1054

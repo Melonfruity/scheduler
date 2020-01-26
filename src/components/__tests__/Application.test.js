@@ -54,7 +54,7 @@ describe("Application", () => {
     // 7. Check that the save page to show up
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
 
-    // debug();
+    debug();
     // This will never happen for me because I only dispatch after the websocket send back
     // a message
     // await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));

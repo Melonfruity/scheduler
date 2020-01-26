@@ -1,13 +1,14 @@
 import { useEffect, useReducer, useCallback } from 'react';
 import axios from 'axios';
 import schedulerReducer from '../reducers/application'
+
+const SET_DAY = "SET_DAY";
+const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+const SET_INTERVIEW = "SET_INTERVIEW";
+
 const ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
 
 export const useApplicationData = () => {
-
-  const SET_DAY = "SET_DAY";
-  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-  const SET_INTERVIEW = "SET_INTERVIEW";
 
   // reducer and initial state for the application
   const [state, dispatch] = useReducer(schedulerReducer, {
@@ -41,9 +42,8 @@ export const useApplicationData = () => {
 
   // updates the total days available days shown
   const updateSpots = useCallback((change, dayOf) => {
-    console.log(dayOf)
+
     const updatedDays = state.days.map((day) => {
-      console.log(day.id, dayOf.id)
       if (day.name === dayOf.name) {
         if (change === 'book' && day.spots - 1 >= 0) {
           return { ...day, spots: day.spots - 1 }
@@ -53,6 +53,7 @@ export const useApplicationData = () => {
       }
       return day;
     });
+
     return updatedDays;
   },[state])
 

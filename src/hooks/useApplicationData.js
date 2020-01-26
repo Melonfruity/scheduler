@@ -40,9 +40,11 @@ export const useApplicationData = () => {
   const cancelInterview = useCallback((id) => axios.delete(`/api/appointments/${id}`),[])
 
   // updates the total days available days shown
-  const updateSpots = useCallback((change) => {
+  const updateSpots = useCallback((change, dayOf) => {
+    console.log(dayOf)
     const updatedDays = state.days.map((day) => {
-      if (day.name === state.day) {
+      console.log(day.id, dayOf.id)
+      if (day.name === dayOf.name) {
         if (change === 'book' && day.spots - 1 >= 0) {
           return { ...day, spots: day.spots - 1 }
         } else if (change === 'cancel' && day.spots + 1 <= 5) {
@@ -50,7 +52,7 @@ export const useApplicationData = () => {
         }
       }
       return day;
-    })
+    });
     return updatedDays;
   },[state])
 
@@ -97,10 +99,13 @@ export const useApplicationData = () => {
             [data.id]: appointment,
           }
 
+          // Get the day to update the spots for
+          const dayOf = state.days[Math.floor(Number(data.id) / 5)];
+          console.log(dayOf)
           dispatch({
             type: SET_INTERVIEW,
             appointments,
-            days: updateSpots(data.interview ? 'book' : 'cancel'),
+            days: updateSpots(data.interview ? 'book' : 'cancel', dayOf),
           });
         }
         ws.send('updating');

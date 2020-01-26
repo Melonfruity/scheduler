@@ -112,7 +112,7 @@ describe("Application", () => {
     // 8. Expect the Saving screen to happen
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
 
-    // debug();
+    debug();
 
   });
 

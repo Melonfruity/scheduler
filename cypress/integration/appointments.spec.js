@@ -20,21 +20,21 @@ describe("Appointments", () => {
   //   cy.contains(".appointment__card--show", "Sylvia Palmer");
   // });
 
-  // it("should edit an interview", () => {
-  //   cy.get("[alt='Edit']")
-  //     .first()
-  //     .click({ force: true})
+  it("should edit an interview", () => {
+    cy.get("[alt='Edit']")
+      .first()
+      .click({ force: true})
 
-  //   cy.get("[data-testid=student-name-input")
-  //     .clear()
-  //     .type("Cohen Archie");
-  //   cy.get("[alt='Tori Malcolm']")
-  //     .click()
+    cy.get("[data-testid=student-name-input")
+      .clear()
+      .type("Cohen Archie");
+    cy.get("[alt='Tori Malcolm']")
+      .click()
 
-  //   cy.contains("Save").click();
-  //   cy.contains(".appointment__card--show", "Cohen Archie");
-  //   cy.contains(".appointment__card--show", "Tori Malcolm");
-  // })
+    cy.contains("Save").click();
+    cy.contains(".appointment__card--show", "Cohen Archie");
+    cy.contains(".appointment__card--show", "Tori Malcolm");
+  })
 
   it("should cancel an interview", () => {
     cy.get("[alt='Delete'")

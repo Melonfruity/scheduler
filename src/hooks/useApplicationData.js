@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useCallback } from 'react';
 import axios from 'axios';
-import schedulerReducer from '../reducers/schedulerReducer'
+import schedulerReducer from '../reducers/application'
 const ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
 
 export const useApplicationData = () => {
@@ -27,13 +27,10 @@ export const useApplicationData = () => {
 
   // book an interview on save function
   const bookInterview = useCallback((id, interview) => {
-    console.log(interview)
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
-
-    console.log(appointment)
 
     return axios
       .put(`/api/appointments/${id}`, appointment)
@@ -57,7 +54,7 @@ export const useApplicationData = () => {
     return updatedDays;
   },[state])
 
-  // gets all the data for the server
+  // gets all the data for the server and set as initial state
   useEffect(() => {
 
     const days = axios.get(`/api/days`);
@@ -84,9 +81,10 @@ export const useApplicationData = () => {
     
       ws.onopen = () => {
         console.log('ping');
-      }
+      };
 
       ws.onmessage = (event) => {
+        // updates current state values based on whether it was a book or cancel
         const data = JSON.parse(event.data);
         if (data.type) {
           const appointment = {
@@ -106,13 +104,12 @@ export const useApplicationData = () => {
           });
         }
         ws.send('updating');
-      }
+      };
     
       ws.onclose = () => {
         ws.close();
       }
-
-  })
+  });
 
   return {
     state,

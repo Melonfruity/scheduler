@@ -29,8 +29,8 @@ The client can choose to edit an interview or delete it. This project uses webso
 
 ## DEPLOYED ON
 
-Client: Netlify[https://quirky-colden-07651a.netlify.com]
-Server: Heroku[https://pacific-citadel-84567.herokuapp.com/api/days]
+Client: [Netlify](https://quirky-colden-07651a.netlify.com)
+Server: [Heroku](https://pacific-citadel-84567.herokuapp.com/api/days)
 
 ## Running Jest Test Framework
 

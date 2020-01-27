@@ -1,11 +1,14 @@
 import { useEffect, useReducer, useCallback } from 'react';
 import axios from 'axios';
 import schedulerReducer from '../reducers/application'
+  // updates the total days available days shown
+import { updateSpots } from '../helpers/helpers'
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
+// websocket for updates
 const ws = new WebSocket(`${process.env.REACT_APP_WEBSOCKET_URL}`);
 
 export const useApplicationData = () => {
@@ -39,23 +42,6 @@ export const useApplicationData = () => {
 
   // cancels an interview on delete 
   const cancelInterview = useCallback((id) => axios.delete(`/api/appointments/${id}`),[])
-
-  // updates the total days available days shown
-  const updateSpots = useCallback((change, dayOf) => {
-
-    const updatedDays = state.days.map((day) => {
-      if (day.name === dayOf.name) {
-        if (change === 'book' && day.spots - 1 >= 0) {
-          return { ...day, spots: day.spots - 1 }
-        } else if (change === 'cancel' && day.spots + 1 <= 5) {
-          return { ...day, spots: day.spots + 1 }
-        }
-      }
-      return day;
-    });
-
-    return updatedDays;
-  },[state])
 
   // gets all the data for the server and set as initial state
   useEffect(() => {
@@ -102,11 +88,11 @@ export const useApplicationData = () => {
 
           // Get the day to update the spots for
           const dayOf = state.days[Math.floor(Number(data.id) / 5)];
-          console.log(dayOf)
+
           dispatch({
             type: SET_INTERVIEW,
             appointments,
-            days: updateSpots(data.interview ? 'book' : 'cancel', dayOf),
+            days: updateSpots(data.interview ? 'book' : 'cancel', dayOf, state),
           });
         }
         ws.send('updating');

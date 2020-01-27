@@ -16,7 +16,7 @@ const DayList = ({ days, day, setDay }) => {
         />
       )}
     </ul>
-  )
+  );
 };
 
 export default DayList;

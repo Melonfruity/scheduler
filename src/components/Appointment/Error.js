@@ -14,7 +14,7 @@ const Error = ({ message, onClose }) => {
         onClick={onClose}
       />
     </main>
-  )
-}
+  );
+};
 
 export default Error;

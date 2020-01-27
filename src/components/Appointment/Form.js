@@ -10,12 +10,12 @@ const Form = (props) => {
   const reset = () => {
     setName("");
     setInterviewer("");
-  }
+  };
 
   const cancel = () => {
     reset();
     props.onCancel();
-  }
+  };
 
   const validate = (interviewer, name) => {
     if (interviewer && name) {
@@ -27,7 +27,7 @@ const Form = (props) => {
     //   setError("select a interviewer");
     //   return false;
     }
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -70,7 +70,7 @@ const Form = (props) => {
         </section>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Form;

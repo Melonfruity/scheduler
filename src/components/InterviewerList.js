@@ -26,6 +26,6 @@ const InterviewerList = (props) => {
 InterviewerList.propTypes = {
   interviewer: PropTypes.number,
   setInterviewer: PropTypes.func.isRequired,
-}
+};
 
 export default InterviewerList;

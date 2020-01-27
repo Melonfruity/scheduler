@@ -33,7 +33,7 @@ export default function Application() {
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
       />)
-  })
+  });
 
   return (
     <main className="layout">

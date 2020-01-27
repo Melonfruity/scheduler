@@ -21,7 +21,7 @@ const DayListItem = ({ name, spots, selected, setDay }) => {
     } else {
       return `${spots} spots remaining`;
     }
-  }
+  };
   
   return (
     <li
@@ -36,7 +36,7 @@ const DayListItem = ({ name, spots, selected, setDay }) => {
       </h3>
 
     </li>
-  )
+  );
 };
 
 export default DayListItem;

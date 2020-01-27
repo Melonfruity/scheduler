@@ -24,7 +24,7 @@ const InterviewerListItem = ({ id, name, avatar, selected, setInterviewer }) => 
       />
       {selected && name}
     </li>
-  )
+  );
 };
 
 export default InterviewerListItem;

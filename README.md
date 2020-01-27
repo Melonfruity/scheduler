@@ -46,3 +46,6 @@ npm run storybook
 
 ## Images and demo
 
+![DEMO](https://github.com/Melonfruity/scheduler/blob/master/docs/demo.gif)
+![LANDING](https://github.com/Melonfruity/scheduler/blob/master/docs/scheduler-basic.png)
+![API](https://github.com/Melonfruity/scheduler/blob/master/docs/api-days.png)
